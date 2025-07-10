@@ -7,6 +7,7 @@ public class Game {
     private boolean gameOver;
 
 
+
     public Game(){
         reset();
     }
@@ -15,29 +16,62 @@ public class Game {
     public void reset(){
         Random rand = new Random();
         numberToGuess = rand.nextInt(1,100);
-        attempts = 0;
         gameOver = false;
-
 
     }
 
     public String checkGuess(int userGuess){
-        attempts ++;
+        attempts--;
+        CheckAttempts();
+        System.out.println("you have left" + attempts + " attempts");
         if(userGuess == numberToGuess){
             gameOver = true;
-            return "you are correct  you guessd it in "  + attempts + "attempts";
+            return "you are correct  you guessed it";
         }
         else if (userGuess < numberToGuess){
             return "low";
         }
-        else {
+
+
+
+        else{
             return "high";
+        }
+
+
+    }
+
+    public int checkLevel(String level){
+        if(level.equals("easy".trim().toLowerCase())){
+            return attempts = 15;
+
+
+        }else if(level.equals("medium".trim().toLowerCase())){
+            return  attempts = 10;
+        }
+        else if(level.equals("hard".trim().toLowerCase())){
+            return attempts = 5;
+        }
+        else {
+            System.out.println("please choose easy/medium/hard");
+            return 0;
         }
     }
 
+
+    public void CheckAttempts(){
+        if(attempts == 0){
+            gameOver = true;
+            System.out.println("game over you lost!");
+
+        };
+
+    }
     public boolean isGameOver(){
         return gameOver;
     }
+
+
 }
 
 
